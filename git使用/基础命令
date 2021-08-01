@@ -1,1 +1,76 @@
 
+使用
+
+首次配置
+--设置用户信息
+
+git config --global user.name username #用户名
+git config --global user.email username@xxx.com #用户邮箱
+git config --list #查看设置是否正确
+--ssh key (macOS)
+
+1.检查是否存在ssh key
+
+cat ~/.ssh/id_rsa.pub
+2.不存在，则生成新ssh key
+
+ssh-keygen -o -t rsa -C "chenweirong@didiglobal.com" -b 4096
+
+输入保存SSH key的文件路径(默认/Users/didi/.ssh/id_rsa)
+输入密码(可enter跳过，改密码)
+
+ssh-keygen -p -o -f <keyname>
+Your identification has been saved in /Users/didi/.ssh/id_rsa.
+
+Your public key has been saved in /Users/didi/.ssh/id_rsa.pub.
+
+
+3.添加ssh key到gitlab账号
+复制公钥到剪切板(ssh-rsa开始，邮箱结尾)：
+
+pbcopy < ~/.ssh/id_rsa.pub
+
+在gitlab User Settings添加
+测试连接：
+
+ssh -T git@git.xiaojukeji.com
+显示表示成功：Welcome to GitLab, @chenweirong!
+
+常见使用步骤
+1.clone代码到本地
+
+git clone https://git.xiaojukeji.com/leedongyang/fin_kg.git
+git clone git@git.xiaojukeji.com:leedongyang/fin_kg.git #ssh免密，ssh协议会通过密钥验证
+git clone git@git.xiaojukeji.com:manhattan/manhattan-bi-dw.git hive/feature #指定目录
+查看当前branch相关信息
+
+git status
+2.本地创建名为DHADOOP-1分支(分支名跟issue需要最好一一对应，方便问题追溯和管理)
+
+git checkout -b DHADOOP-1
+3.提交DHADOOP-1
+
+git add README.md #添加到缓存区
+git commit -m "[DHADOOP-1] provide README fot hadoop project" #引号内为说明，提交到本地仓库
+git push origin DHADOOP-1 #本地分支推送到远端
+*4.多次commit,合并成一个提交
+
+git rebase -i <from commitid>
+*5.提交merge request(将branch合并到master分支中)
+
+gitlab → file → create merge request
+
+
+
+常用命令
+git基本操作命令
+git pull #拉取
+
+
+idea导入git项目
+idea → File → New → Project from Version Control → Git
+git ssh：ssh路径
+
+
+
+
